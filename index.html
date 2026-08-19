@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ตัวน่ารักก 🌿</title>
+<title>ตัวน่ารักก 🦦</title>
 <style>
 
   :root {
@@ -910,6 +910,117 @@
     font-weight: 700;
   }
 
+  /* --- Rabbit meets otter (intro) --- */
+  .meet-stage {
+    position: relative;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+
+  .meet-rabbit,
+  .meet-otter {
+    font-size: 2.9rem;
+    display: inline-block;
+    transform-origin: bottom center;
+  }
+
+  /* The rabbit leans in and peeks, then bashfully leans back */
+  .meet-rabbit { animation: rabbitPeek 4s ease-in-out infinite; }
+
+  /* The otter just bobs happily, unbothered */
+  .meet-otter { animation: otterBob 3.2s ease-in-out infinite; }
+
+  @keyframes rabbitPeek {
+    0%, 100%  { transform: translateX(0) rotate(0deg); }
+    35%       { transform: translateX(9px) rotate(9deg); }
+    55%       { transform: translateX(9px) rotate(9deg); }
+    75%       { transform: translateX(-3px) rotate(-4deg); }
+  }
+
+  @keyframes otterBob {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50%      { transform: translateY(-6px) rotate(3deg); }
+  }
+
+  .meet-hearts {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .mh {
+    position: absolute;
+    font-size: 0.95rem;
+    opacity: 0;
+    animation: heartFloat 4s ease-in-out infinite;
+  }
+
+  .mh1 { left: -6px; animation-delay: 1.1s; }
+  .mh2 { left: 8px;  animation-delay: 1.7s; }
+
+  @keyframes heartFloat {
+    0%, 55%   { opacity: 0; transform: translateY(6px) scale(0.7); }
+    65%       { opacity: 0.95; transform: translateY(-4px) scale(1); }
+    85%, 100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
+  }
+
+  /* --- Pets line --- */
+  .pets-card { text-align: center; }
+
+  .pets-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+  .pets-sep { color: #d8c7b5; }
+
+  .pets-sub {
+    font-size: 0.78rem !important;
+    color: var(--brown-soft);
+    opacity: 0.85;
+    margin-top: 6px !important;
+  }
+
+  /* --- Faint drifting pet background --- */
+  .pet-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .pet-bg span {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.07;
+    animation: drift linear infinite;
+  }
+
+  @keyframes drift {
+    from { transform: translateY(105vh) rotate(0deg); }
+    to   { transform: translateY(-15vh) rotate(300deg); }
+  }
+
+  /* Keep the card above the drifting background */
+  .app { position: relative; z-index: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .meet-rabbit, .meet-otter, .mh, .pet-bg span { animation: none; }
+    .mh { opacity: 0.9; }
+  }
+
   /* --- Choice buttons on the final ask --- */
   .ask-option {
     padding: 16px 18px;
@@ -979,15 +1090,48 @@
   </div>
 </div>
 
+<div class="pet-bg" id="petBg" aria-hidden="true"></div>
+
 <div class="app" id="appRoot" hidden>
   <div class="card">
     <button class="sound-toggle" id="soundToggle" aria-label="เปิด/ปิดเสียง">🔇</button>
 
     <!-- INTRO -->
     <div class="screen active" id="screen-intro">
-      <div class="emoji-hero">👋🌿</div>
-      <h1>ตัวน่ารักก 🌿</h1>
+
+      <!-- Rabbit (me) sneaking a look at the otter (you) -->
+      <div class="meet-stage" aria-hidden="true">
+        <span class="meet-rabbit">🐰</span>
+        <span class="meet-hearts">
+          <span class="mh mh1">💛</span>
+          <span class="mh mh2">💛</span>
+        </span>
+        <span class="meet-otter">🦦</span>
+      </div>
+
+      <h1>ตัวน่ารักก 🦦</h1>
       <p>เค้าทำอะไรเล่นๆ มาให้ตัวดู 😊</p>
+
+      <div class="note-card">
+        <p class="note-line">
+          เค้าเป็น<b>กระต่าย</b> 🐰 ส่วนตัวเป็น<b>นาก</b> 🦦
+          (ที่เค้าเคยทักว่าแมวน้ำนั่นแหละ ขอโทษที 😆)
+        </p>
+        <p class="note-line">
+          แต่ตัวชอบเรียกเค้าว่า<b>หมาน้อย</b> 🐶 -///-
+        </p>
+      </div>
+
+      <div class="note-card pets-card">
+        <p class="note-line pets-line">
+          <span class="pet">🐶 <b>ฟีเมล</b></span>
+          <span class="pet">🐶 <b>มิลาน</b></span>
+          <span class="pets-sep">·</span>
+          <span class="pet">🐱 <b>กาโม่</b></span>
+          <span class="pet">🐱 <b>กาฟิว</b></span>
+        </p>
+        <p class="note-line pets-sub">ทีมสัตว์เลี้ยงของเราสองคน 🐾</p>
+      </div>
 
       <div class="note-card">
         <p class="note-line">
@@ -1086,11 +1230,11 @@
 
     <!-- OUTRO -->
     <div class="screen" id="screen-outro">
-      <div class="emoji-hero">💛</div>
+      <div class="emoji-hero">🐰💛🦦</div>
       <h1 style="text-align:center;">ขอบคุณที่เล่นให้จนจบนะ 💛</h1>
       <p style="text-align:center;">
         ไว้เจอกันอีกนะ<br>
-        ว่างๆ ทักมาคุยกันได้เลย 🌿
+        ว่างๆ ทักมาคุยกันได้เลย 🐾
       </p>
       <div class="btn-row">
         <button class="btn" id="yesOutro" onclick="backToStart()">กลับไปดูอีกรอบ 🔄</button>
@@ -1529,6 +1673,28 @@ window.addEventListener('resize', () => {
   el.style.left = xy[0] + 'px';
   el.style.top = xy[1] + 'px';
 });
+
+/* ---------- Faint pet background ----------
+   Deliberately low opacity (set in CSS) so it stays decoration and
+   never competes with the text. */
+(() => {
+  const bg = document.getElementById('petBg');
+  if (!bg) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const CRITTERS = ['🐰', '🦦', '🐶', '🐱', '🐾', '🐾', '💛'];
+  const COUNT = 14;
+
+  for (let i = 0; i < COUNT; i++) {
+    const s = document.createElement('span');
+    s.textContent = CRITTERS[i % CRITTERS.length];
+    s.style.left = (i / COUNT * 100 + Math.random() * 6) + '%';
+    s.style.fontSize = (1.1 + Math.random() * 1.2) + 'rem';
+    s.style.animationDuration = (26 + Math.random() * 22) + 's';
+    s.style.animationDelay = '-' + (Math.random() * 40) + 's';
+    bg.appendChild(s);
+  }
+})();
 
 /* ---------- Music credit ---------- */
 document.getElementById('musicCredit').textContent =
