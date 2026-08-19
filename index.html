@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตัวน่ารักก 🌿</title>
+<style>
+
+  :root {
+    --cream: #fdf6ee;
+    --peach: #ffd9c2;
+    --peach-deep: #ffb08a;
+    --sage: #b8c9a8;
+    --sage-deep: #8ba876;
+    --brown: #5c4a3d;
+    --brown-soft: #8a7568;
+    --pink: #f4a6a0;
+    --white: #ffffff;
+    --shadow: 0 8px 24px rgba(140, 110, 80, 0.15);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(160deg, var(--cream) 0%, #fff0e3 50%, #fdece0 100%);
+    color: var(--brown);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 36px 26px;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.5s ease;
+    position: relative;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 0 0 12px;
+    color: var(--brown);
+    line-height: 1.4;
+  }
+
+  p {
+    line-height: 1.7;
+    color: var(--brown-soft);
+    margin: 0 0 16px;
+    font-size: 0.98rem;
+  }
+
+  .emoji-hero {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 16px;
+    background: var(--peach-deep);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+    box-shadow: 0 4px 14px rgba(255, 140, 90, 0.35);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(255, 140, 90, 0.45);
+  }
+
+  .btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .btn.secondary {
+    background: var(--sage);
+    box-shadow: 0 4px 14px rgba(139, 168, 118, 0.35);
+  }
+
+  .btn.secondary:hover {
+    box-shadow: 0 8px 20px rgba(139, 168, 118, 0.45);
+  }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--brown-soft);
+    border: 2px solid #eee0d3;
+    box-shadow: none;
+  }
+
+  .btn.ghost:hover {
+    box-shadow: none;
+    border-color: var(--peach-deep);
+    color: var(--peach-deep);
+  }
+
+  .btn-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: #f3e7da;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--peach-deep), var(--pink));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-size: 0.78rem;
+    color: var(--brown-soft);
+    text-align: right;
+    margin-top: -18px;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+
+  .option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .option {
+    padding: 14px 16px;
+    border: 2px solid #f0e4d6;
+    border-radius: 14px;
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 0.95rem;
+    color: var(--brown);
+    text-align: left;
+    position: relative;
+  }
+
+  .option:hover {
+    border-color: var(--peach-deep);
+    background: #fff3ea;
+    transform: translateX(2px);
+  }
+
+  .option.selected {
+    border-color: var(--sage-deep);
+    background: #eef4e8;
+    font-weight: 600;
+  }
+
+  .option.wrong-flash {
+    animation: shake 0.4s ease;
+    border-color: #e0a5a0;
+  }
+
+  .option.special {
+    border-color: var(--pink);
+    background: linear-gradient(135deg, #fff0f0, #fff8f0);
+    animation: sparkle 1.2s ease infinite;
+    font-weight: 700;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { box-shadow: 0 0 0 rgba(244, 166, 160, 0); }
+    50% { box-shadow: 0 0 18px rgba(244, 166, 160, 0.5); }
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--brown);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 0.88rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .other-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #f0e4d6;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    margin-top: 4px;
+    font-family: inherit;
+    color: var(--brown);
+    display: none;
+  }
+
+  .other-input.show { display: block; }
+
+  .q-hint {
+    font-size: 0.82rem;
+    color: var(--sage-deep);
+    margin: -6px 0 10px;
+    font-weight: 600;
+  }
+
+  .option.multi {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .option.multi .check {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    border: 2px solid #ddcbb8;
+    background: var(--white);
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+  }
+
+  .option.multi.selected .check {
+    background: var(--sage-deep);
+    border-color: var(--sage-deep);
+  }
+
+  .note-input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 2px dashed #e6d7c6;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--brown);
+    margin: -4px 0 2px 30px;
+    max-width: calc(100% - 30px);
+    display: none;
+    background: #fffdfa;
+  }
+
+  .note-input.show { display: block; }
+
+  .note-input:focus, .other-input:focus {
+    outline: none;
+    border-color: var(--peach-deep);
+    border-style: solid;
+  }
+
+  .other-input:focus {
+    outline: none;
+    border-color: var(--peach-deep);
+  }
+
+  .tier-place {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  .tier-place .place-emoji {
+    font-size: 3rem;
+    margin-bottom: 8px;
+  }
+
+  .tier-place .place-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+
+  .tier-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .tier-btn {
+    padding: 16px 8px;
+    border: 2px solid #f0e4d6;
+    border-radius: 14px;
+    background: var(--cream);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.18s ease;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--brown-soft);
+    position: relative;
+  }
+
+  .tier-btn .tier-emoji {
+    display: block;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    transition: transform 0.18s ease;
+  }
+
+  .tier-btn:hover { transform: translateY(-2px); }
+
+  /* Unselected buttons fade back once a choice is made, so the
+     picked one clearly stands out. */
+  .tier-buttons.has-choice .tier-btn:not(.selected) {
+    opacity: 0.42;
+    filter: saturate(0.5);
+  }
+
+  .tier-btn.selected {
+    color: var(--white);
+    transform: translateY(-4px) scale(1.06);
+    font-weight: 800;
+  }
+
+  .tier-btn.selected .tier-emoji {
+    transform: scale(1.22);
+  }
+
+  /* Tick badge on the chosen button */
+  .tier-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--brown);
+    font-size: 0.8rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+
+  .tier-btn.love { border-color: var(--pink); }
+  .tier-btn.love.selected {
+    background: var(--pink);
+    border-color: var(--pink);
+    box-shadow: 0 8px 20px rgba(244,166,160,0.55), 0 0 0 4px rgba(244,166,160,0.22);
+  }
+  .tier-btn.love.selected::after { color: #c9635c; }
+
+  .tier-btn.meh { border-color: var(--sage); }
+  .tier-btn.meh.selected {
+    background: var(--sage-deep);
+    border-color: var(--sage-deep);
+    box-shadow: 0 8px 20px rgba(139,168,118,0.55), 0 0 0 4px rgba(139,168,118,0.22);
+  }
+  .tier-btn.meh.selected::after { color: var(--sage-deep); }
+
+  .tier-btn.nope { border-color: #d9b8b8; }
+  .tier-btn.nope.selected {
+    background: #b5827f;
+    border-color: #b5827f;
+    box-shadow: 0 8px 20px rgba(181,130,127,0.5), 0 0 0 4px rgba(181,130,127,0.2);
+  }
+  .tier-btn.nope.selected::after { color: #b5827f; }
+
+  .copy-box {
+    background: linear-gradient(135deg, #fff5ec, #fdf1f0);
+    border: 2px dashed var(--peach-deep);
+    border-radius: 18px;
+    padding: 18px 16px;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .copy-title {
+    font-weight: 800;
+    color: var(--brown);
+    margin: 0 0 6px;
+    font-size: 1rem;
+  }
+
+  .copy-steps {
+    font-size: 0.88rem;
+    margin: 0 0 14px;
+    line-height: 1.6;
+  }
+
+  .copy-steps-small {
+    font-size: 0.78rem;
+    opacity: 0.8;
+  }
+
+  .copy-btn {
+    font-size: 1.05rem;
+    padding: 16px 20px;
+  }
+
+  .copy-done {
+    display: none;
+    margin: 12px 0 0;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--sage-deep);
+  }
+
+  .copy-done.show { display: block; }
+
+  .copy-fallback {
+    display: none;
+    width: 100%;
+    height: 130px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 2px solid var(--peach-deep);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--brown);
+    background: var(--white);
+    resize: vertical;
+  }
+
+  .copy-fallback.show { display: block; }
+
+  .copy-hint-manual {
+    display: none;
+    font-size: 0.78rem;
+    margin: 8px 0 0;
+    color: var(--brown-soft);
+  }
+
+  .copy-hint-manual.show { display: block; }
+
+  /* --- Passcode gate --- */
+  .lock {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    background: linear-gradient(160deg, var(--cream) 0%, #fff0e3 50%, #fdece0 100%);
+    z-index: 500;
+  }
+
+  .lock.unlocked { display: none; }
+
+  .lock-card {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 36px 26px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 340px;
+    text-align: center;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .lock-emoji {
+    font-size: 2.6rem;
+    margin-bottom: 10px;
+  }
+
+  .lock-title {
+    font-size: 1.2rem;
+    margin: 0 0 6px;
+  }
+
+  .lock-hint {
+    font-size: 0.86rem;
+    margin: 0 0 18px;
+  }
+
+  .lock-input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .lock-input {
+    width: 100%;
+    padding: 14px 48px 14px 20px;
+    border: 2px solid #f0e4d6;
+    border-radius: 14px;
+    font-size: 1.5rem;
+    font-family: inherit;
+    text-align: center;
+    letter-spacing: 6px;
+    color: var(--brown);
+    background: var(--cream);
+  }
+
+  .lock-eye {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, transform 0.15s ease;
+    opacity: 0.75;
+  }
+
+  .lock-eye:hover {
+    background: #f6ece1;
+    opacity: 1;
+  }
+
+  .lock-eye:active { transform: translateY(-50%) scale(0.9); }
+
+  .lock-input:focus {
+    outline: none;
+    border-color: var(--peach-deep);
+    background: var(--white);
+  }
+
+  .lock-input.shake { animation: shake 0.4s ease; border-color: #e0a5a0; }
+
+  .lock-error {
+    display: none;
+    font-size: 0.84rem;
+    color: #c9635c;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+
+  .lock-error.show { display: block; }
+
+  /* --- Calendar slides --- */
+  .cal-strip {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 14px 0 16px;
+  }
+
+  .cal-pip {
+    font-size: 0.66rem;
+    padding: 4px 7px;
+    border-radius: 8px;
+    background: var(--cream);
+    color: var(--brown-soft);
+    border: 1px solid #f0e4d6;
+    transition: all 0.2s ease;
+  }
+
+  .cal-pip.past {
+    background: #eef4e8;
+    border-color: var(--sage);
+    opacity: 0.75;
+  }
+
+  .cal-pip.active {
+    background: var(--peach-deep);
+    border-color: var(--peach-deep);
+    color: var(--white);
+    font-weight: 800;
+    transform: scale(1.12);
+  }
+
+  .cal-card {
+    background: var(--cream);
+    border-radius: 18px;
+    padding: 20px 18px;
+    text-align: center;
+    border: 2px solid #f0e4d6;
+  }
+
+  .cal-card.pop { animation: begPop 0.28s cubic-bezier(0.34, 1.4, 0.64, 1); }
+
+  .cal-card.is-future {
+    background: linear-gradient(135deg, #eef4e8, #f6fbf2);
+    border-color: var(--sage);
+  }
+
+  .cal-card.is-closing {
+    background: linear-gradient(135deg, #fff5ec, #fdf1f0);
+    border-color: var(--peach-deep);
+    border-style: dashed;
+  }
+
+  .cal-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .cal-date {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--brown);
+  }
+
+  .cal-day {
+    font-size: 0.78rem;
+    color: var(--brown-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cal-emoji {
+    font-size: 2.4rem;
+    margin: 6px 0 10px;
+  }
+
+  .cal-text {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin: 0;
+    color: var(--brown);
+  }
+
+  .cal-extra {
+    display: none;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed #ddcbb8;
+  }
+
+  .cal-extra.show { display: block; }
+
+  .cal-ask {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: var(--brown);
+  }
+
+  .cal-confirm-btn { font-size: 0.95rem; }
+
+  .cal-confirmed {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--sage-deep);
+  }
+
+  /* Little "note from Daino" panels on the intro / outro */
+  .note-card {
+    background: var(--cream);
+    border-left: 4px solid var(--sage);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 0 0 18px;
+  }
+
+  .note-card.highlight {
+    background: linear-gradient(135deg, #fff5ec, #fdf1f0);
+    border-left-color: var(--peach-deep);
+    text-align: center;
+  }
+
+  .note-line {
+    margin: 0 0 8px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .note-line:last-child { margin-bottom: 0; }
+
+  .note-card.highlight .note-line b { color: var(--brown); }
+
+  .note-arrow {
+    font-size: 0.85rem !important;
+    font-weight: 700;
+    color: var(--peach-deep);
+    margin-top: 10px !important;
+  }
+
+  .summary-box {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+
+  .summary-box h3 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: var(--sage-deep);
+  }
+
+  .summary-item {
+    font-size: 0.88rem;
+    color: var(--brown);
+    padding: 4px 0;
+    border-bottom: 1px dashed #eaddd0;
+  }
+
+  .summary-item:last-child { border-bottom: none; }
+
+  .summary-item .tier-tag {
+    float: right;
+    font-weight: 600;
+  }
+
+  .sound-toggle {
+    position: absolute;
+    top: -14px;
+    right: -6px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: none;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+    z-index: 10;
+  }
+
+  .sound-toggle:hover { transform: scale(1.08); }
+
+  .float-emoji {
+    position: fixed;
+    font-size: 1.6rem;
+    pointer-events: none;
+    z-index: 200;
+    animation: floatUp 1.6s ease-out forwards;
+  }
+
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(0.8) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(-140px) scale(1.3) rotate(20deg); }
+  }
+
+  .confetti-piece {
+    position: fixed;
+    top: -10px;
+    pointer-events: none;
+    z-index: 199;
+    animation: confettiFall linear forwards;
+  }
+
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(540deg); opacity: 0.3; }
+  }
+
+  /* --- Playful "no" button --- */
+  .no-btn {
+    transition: all 0.28s cubic-bezier(0.34, 1.3, 0.64, 1);
+  }
+
+  /* Once it starts running away it is positioned against the viewport,
+     clamped in JS so it can never leave the visible screen. */
+  .no-btn.runaway {
+    position: fixed;
+    width: auto;
+    min-width: 64px;
+    z-index: 90;
+    margin: 0;
+  }
+
+  .beg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(92, 74, 61, 0.55);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 24px;
+    cursor: pointer;
+  }
+
+  .beg-overlay.show { display: flex; }
+
+  .beg-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 30px 24px;
+    max-width: 340px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    animation: begPop 0.32s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  @keyframes begPop {
+    from { opacity: 0; transform: scale(0.82) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .beg-emoji {
+    font-size: 3.2rem;
+    margin-bottom: 10px;
+    animation: begWobble 1.6s ease-in-out infinite;
+  }
+
+  /* The final taunt gets a much bigger, cheekier face */
+  .beg-emoji.big {
+    font-size: 5.4rem;
+    animation: begTease 0.9s ease-in-out infinite;
+  }
+
+  @keyframes begWobble {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+  }
+
+  @keyframes begTease {
+    0%, 100% { transform: rotate(-9deg) scale(1); }
+    50% { transform: rotate(9deg) scale(1.12); }
+  }
+
+  .beg-text {
+    font-size: 1.02rem;
+    color: var(--brown);
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 0 0 12px;
+  }
+
+  .beg-text.big {
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .beg-close-hint {
+    font-size: 0.74rem;
+    color: var(--brown-soft);
+    opacity: 0.75;
+    margin: 0;
+  }
+
+  .credit-line {
+    font-size: 0.68rem;
+    color: #c9baaa;
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  .heart-divider {
+    text-align: center;
+    color: var(--peach-deep);
+    margin: 18px 0;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+  }
+
+  .name-tag {
+    color: var(--peach-deep);
+    font-weight: 700;
+  }
+
+  /* --- Choice buttons on the final ask --- */
+  .ask-option {
+    padding: 16px 18px;
+    border: 2px solid #f0e4d6;
+    border-radius: 16px;
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.98rem;
+    color: var(--brown);
+    position: relative;
+  }
+
+  .ask-option:hover { border-color: var(--peach-deep); transform: translateX(2px); }
+
+  .ask-option.selected {
+    border-color: var(--sage-deep);
+    background: #eef4e8;
+    font-weight: 700;
+  }
+
+  .ask-option.selected::after {
+    content: '\2713';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sage-deep);
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+
+  .ask-emoji { margin-right: 8px; }
+
+  .ask-sub {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--brown-soft);
+    margin-top: 4px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Passcode gate. Client-side only: the code sits in this file in plain
+     text, so anyone who views source can read it. It only keeps casual
+     visitors out. Never put anything genuinely private behind it. -->
+<div class="lock" id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-emoji">🔒</div>
+    <h1 class="lock-title">ใส่รหัสก่อนนะ</h1>
+    <p class="lock-hint">ตัวรู้รหัสอยู่แล้ว 😉</p>
+    <div class="lock-input-wrap">
+      <input type="password" inputmode="numeric" autocomplete="off" maxlength="6"
+             class="lock-input" id="lockInput" placeholder="• • • • • •" aria-label="รหัสผ่าน">
+      <button type="button" class="lock-eye" id="lockEye" onclick="togglePasscode()" aria-label="ดูรหัส">👁️</button>
+    </div>
+    <p class="lock-error" id="lockError">ไม่ใช่รหัสนี้น้าา ลองอีกที 👀</p>
+    <button class="btn" onclick="tryUnlock()">เข้าไปดู 🌱</button>
+  </div>
+</div>
+
+<div class="app" id="appRoot" hidden>
+  <div class="card">
+    <button class="sound-toggle" id="soundToggle" aria-label="เปิด/ปิดเสียง">🔇</button>
+
+    <!-- INTRO -->
+    <div class="screen active" id="screen-intro">
+      <div class="emoji-hero">👋🌿</div>
+      <h1>ตัวน่ารักก 🌿</h1>
+      <p>เค้าทำอะไรเล่นๆ มาให้ตัวดู 😊</p>
+
+      <div class="note-card">
+        <p class="note-line">
+          นับจากวันที่เราเล่น <b>PUBG</b> ด้วยกันวันแรก
+          จนถึงตอนนี้ก็ไม่กี่วันเองนะ
+        </p>
+        <p class="note-line">
+          แต่เค้าจดไว้หมดเลย กดดูไปเรื่อยๆ ได้เลยน้าา 👉👈
+        </p>
+      </div>
+
+      <p>ท้ายๆ มีอะไรจะถามตัวนิดนึงด้วย ไม่นานเลย ลองดูไหม?</p>
+
+      <div class="btn-row">
+        <button class="btn" id="yesIntro" onclick="startJourney()">ดูเลย 🌱</button>
+        <button class="btn ghost no-btn" id="noIntro" onclick="pressNo('intro')">ไม่</button>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="screen" id="screen-cal">
+      <div class="progress-bar"><div class="progress-fill" id="calProgress"></div></div>
+      <div class="progress-label" id="calProgressLabel"></div>
+
+      <h1 style="text-align:center; font-size:1.12rem;">เรื่องของเรา 🗓️</h1>
+      <p style="text-align:center; font-size:0.88rem;">กดดูไปเรื่อยๆ ได้เลยน้าา</p>
+
+      <div class="cal-strip" id="calStrip"></div>
+
+      <div class="cal-card" id="calCard">
+        <div class="cal-card-head">
+          <span class="cal-date" id="calDate"></span>
+          <span class="cal-day" id="calDay"></span>
+        </div>
+        <div class="cal-emoji" id="calEmoji"></div>
+        <p class="cal-text" id="calText"></p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="calNextBtn" onclick="nextCalDay()">ถัดไป →</button>
+      </div>
+    </div>
+
+    <!-- THE ASK -->
+    <div class="screen" id="screen-ask">
+      <div class="emoji-hero">🎾</div>
+      <h1 style="text-align:center; font-size:1.15rem;">อาทิตย์ 23/8 นี้</h1>
+
+      <div class="note-card">
+        <p class="note-line">
+          เค้ามีแข่งเทนนิสที่ <b>Alpine</b> ตอน <b>08:00 - 11:00</b> นะ
+        </p>
+        <p class="note-line">
+          อยู่แถวๆ ตัวเลย เลยอยากชวนมาดู ถ้าว่างนะ
+        </p>
+        <p class="note-line">
+          แต่ไม่ต้องเกรงใจเลยน้าา รู้ว่างานตัวก็หนัก
+          มีเคสด่วนขึ้นมาก็ได้ เค้าเข้าใจ 🐾
+        </p>
+      </div>
+
+      <div id="askOptions"></div>
+
+      <input type="text" class="other-input show" id="askNote"
+             placeholder="อยากบอกอะไรเพิ่มก็พิมพ์มาได้น้าา (ไม่ใส่ก็ได้)">
+
+      <div class="btn-row">
+        <button class="btn" id="askNextBtn" onclick="finishAsk()" disabled>ดูสรุป →</button>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="screen" id="screen-summary">
+      <div class="emoji-hero">🎁</div>
+      <h1 style="text-align:center;">จบแล้ว เย้ 🎉</h1>
+      <p style="text-align:center;">เค้าสรุปมาให้แล้ว ✨</p>
+      <div id="summaryContainer"></div>
+      <div class="heart-divider">• • •</div>
+
+      <div class="copy-box">
+        <p class="copy-title">ส่งคำตอบมาให้เค้าด้วยน้าา 💛</p>
+        <p class="copy-steps">
+          กดปุ่มข้างล่างนี้ <b>1 ครั้ง</b> แล้วไปวางในแชทส่งเค้า<br>
+          <span class="copy-steps-small">(กดปุ่ม = คัดลอกให้เลย ไม่ต้องพิมพ์เอง)</span>
+        </p>
+        <button class="btn copy-btn" id="copyBtn" onclick="copySummary()">📋 คัดลอกคำตอบ</button>
+        <p class="copy-done" id="copyDone">คัดลอกแล้ว ✓ ไปวางในแชทส่งเค้าได้เลย 🌸</p>
+        <textarea class="copy-fallback" id="copyFallback" readonly></textarea>
+        <p class="copy-hint-manual" id="copyManualHint">กดค้างที่ข้อความข้างบน → เลือกทั้งหมด → Copy แล้วไปวางในแชทได้เลยนะ</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" onclick="goToOutro()">ต่อไป →</button>
+      </div>
+    </div>
+
+    <!-- OUTRO -->
+    <div class="screen" id="screen-outro">
+      <div class="emoji-hero">💛</div>
+      <h1 style="text-align:center;">ขอบคุณที่เล่นให้จนจบนะ 💛</h1>
+      <p style="text-align:center;">
+        ไว้เจอกันอีกนะ<br>
+        ว่างๆ ทักมาคุยกันได้เลย 🌿
+      </p>
+      <div class="btn-row">
+        <button class="btn" id="yesOutro" onclick="backToStart()">กลับไปดูอีกรอบ 🔄</button>
+      </div>
+      <p class="credit-line" id="musicCredit"></p>
+    </div>
+
+  </div>
+</div>
+
+<div class="beg-overlay" id="begOverlay" onclick="closeBeg()">
+  <div class="beg-card">
+    <div class="beg-emoji" id="begEmoji">🥺</div>
+    <p class="beg-text" id="begText"></p>
+    <p class="beg-close-hint" id="begCloseHint">แตะที่ไหนก็ได้เพื่อปิด</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<audio id="bgMusic" loop preload="none">
+  <source src="assets/audio/carefree.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ---------- Passcode gate ----------
+   Client-side only. The code below is readable by anyone who views
+   source, so it stops casual visitors and nothing more. */
+const PASSCODE = '150869';
+
+function togglePasscode() {
+  const input = document.getElementById('lockInput');
+  const eye = document.getElementById('lockEye');
+  const hidden = input.type === 'password';
+  input.type = hidden ? 'text' : 'password';
+  eye.textContent = hidden ? '🙈' : '👁️';
+  eye.setAttribute('aria-label', hidden ? 'ซ่อนรหัส' : 'ดูรหัส');
+  input.focus();
+}
+
+function tryUnlock() {
+  const input = document.getElementById('lockInput');
+  const error = document.getElementById('lockError');
+  if (input.value.trim() === PASSCODE) {
+    document.getElementById('lockScreen').classList.add('unlocked');
+    document.getElementById('appRoot').hidden = false;
+    try { sessionStorage.setItem('aumUnlocked', '1'); } catch (e) {}
+    return;
+  }
+  error.classList.add('show');
+  input.classList.remove('shake');
+  void input.offsetWidth;
+  input.classList.add('shake');
+  input.select();
+}
+
+(() => {
+  let already = false;
+  try { already = sessionStorage.getItem('aumUnlocked') === '1'; } catch (e) {}
+  if (already) {
+    document.getElementById('lockScreen').classList.add('unlocked');
+    document.getElementById('appRoot').hidden = false;
+  }
+})();
+
+document.getElementById('lockInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') tryUnlock();
+});
+document.getElementById('lockInput').addEventListener('input', () => {
+  document.getElementById('lockError').classList.remove('show');
+});
+
+/* ---------- State ---------- */
+const state = { answer: null, note: '' };
+
+/* ---------- Timeline ---------- */
+const CAL_DAYS = [
+  {
+    date: '13/8', day: 'Wed', emoji: '🎮',
+    text: 'เล่น <b>PUBG Mobile</b> ด้วยกันวันแรก<br>จุดเริ่มต้นของทุกอย่างเลย'
+  },
+  {
+    date: '15/8', day: 'Fri', emoji: '🏃',
+    text: 'เจอตัวจริงวันแรก ที่<b>สวนนวมินทร์ภิรมย์</b><br>เค้าออกจากบ้านตั้งแต่ตี 5 ถึงก่อน 6 โมงนิดเดียว ไกลมากแต่คุ้ม'
+  },
+  {
+    date: '15/8', day: 'Fri', emoji: '🍟',
+    text: 'วิ่งเสร็จไปกินแม็คต่อ ตัวสั่ง Happy Meal มา<br>แล้วยก<b>พวงกุญแจสไปเดอร์แมน</b>ให้เค้า ชอบมากๆ อยากสะสมลายอื่นต่อเลย 🕷️'
+  },
+  {
+    date: '16/8', day: 'Sat', emoji: '🍲',
+    text: 'ตีเทนนิสมา 4 ชม. แล้วดิ่งไปหาตัวที่แฟชั่น<br>ตัวเลี้ยง <b>Momo Paradise</b> ที่เค้าอยากกินมาก ขอบคุณนะ 🙏'
+  },
+  {
+    date: '16/8', day: 'Sat', emoji: '😅',
+    text: 'แล้วเค้าก็เดินหลงอยู่พักนึงกว่าจะตามไปถึงร้าน 😂<br>กว่าจะกลับก็ 4 ทุ่มกว่าๆ'
+  },
+  {
+    date: '19/8', day: 'Tue', emoji: '🕷️',
+    text: 'ไปดูหนังด้วยกันครั้งแรก ที่<b>เซ็นทรัลลาดพร้าว</b> รอบ <b>19:15</b><br>กินข้าวก่อนแล้วค่อยไป รอบนี้เค้าจัดการเอง'
+  },
+  {
+    date: '22/8', day: 'Sat', emoji: '🌅',
+    text: 'ตั้งใจจะไปวิ่งเช้าที่เดิมอีก แต่เอาเบาๆ<br>เพราะพรุ่งนี้มีแข่ง 😄'
+  },
+  {
+    date: '23/8', day: 'Sun', emoji: '🎾',
+    text: '<b>แข่งเทนนิสที่ Alpine</b> ตอน 08:00 - 11:00<br>อยู่แถวๆ ตัวเลยนะ 👀',
+    future: true
+  }
+];
+
+let calIndex = 0;
+
+/* ---------- The ask ---------- */
+const ASK_OPTIONS = [
+  { key: 'yes',   emoji: '🎉', label: 'ไปดูสิ',                 sub: 'เจอกันที่สนามนะ' },
+  { key: 'maybe', emoji: '😏', label: 'ไม่รู้สิ',                sub: '(ยิ้มมุมปาก)' },
+  { key: 'busy',  emoji: '🐾', label: 'วันนั้นติดงาน ไปไม่ได้', sub: 'ไม่เป็นไรเลย เค้าเข้าใจ' }
+];
+
+const ASK_LABELS = {
+  yes:   '🎉 ไปดู',
+  maybe: '😏 ไม่รู้สิ',
+  busy:  '🐾 ติดงาน'
+};
+
+/* ---------- Navigation ---------- */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startJourney() {
+  tryPlayMusic();
+  calIndex = 0;
+  showScreen('screen-cal');
+  renderCalStrip();
+  renderCalDay();
+}
+
+function goToOutro() { showScreen('screen-outro'); }
+function backToStart() { showScreen('screen-intro'); }
+
+/* ---------- Music ---------- */
+const bgMusic = document.getElementById('bgMusic');
+const soundToggle = document.getElementById('soundToggle');
+let musicEnabled = true;
+
+function tryPlayMusic() {
+  bgMusic.volume = 0.35;
+  const p = bgMusic.play();
+  if (p !== undefined) {
+    p.then(() => { musicEnabled = true; soundToggle.textContent = '🔊'; })
+     .catch(() => { musicEnabled = false; soundToggle.textContent = '🔇'; });
+  }
+}
+
+soundToggle.addEventListener('click', () => {
+  if (musicEnabled) {
+    bgMusic.pause(); musicEnabled = false; soundToggle.textContent = '🔇';
+  } else {
+    bgMusic.play().catch(() => {}); musicEnabled = true; soundToggle.textContent = '🔊';
+  }
+});
+
+/* ---------- Toast ---------- */
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+/* ---------- Effects ---------- */
+function spawnFloatEmoji(x, y, emoji) {
+  const el = document.createElement('div');
+  el.className = 'float-emoji';
+  el.textContent = emoji;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1600);
+}
+
+function spawnConfetti() {
+  const colors = ['#ffb08a', '#f4a6a0', '#b8c9a8', '#ffd9c2', '#8ba876'];
+  for (let i = 0; i < 24; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    const size = 6 + Math.random() * 6;
+    p.style.width = size + 'px';
+    p.style.height = size * 0.6 + 'px';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 3600);
+  }
+}
+
+/* ---------- Timeline render ---------- */
+function renderCalStrip() {
+  document.getElementById('calStrip').innerHTML = CAL_DAYS
+    .map((d, i) => '<span class="cal-pip" data-i="' + i + '">' + d.date + '</span>')
+    .join('');
+}
+
+function renderCalDay() {
+  const d = CAL_DAYS[calIndex];
+  document.getElementById('calProgress').style.width = ((calIndex + 1) / CAL_DAYS.length * 100) + '%';
+  document.getElementById('calProgressLabel').textContent = (calIndex + 1) + ' / ' + CAL_DAYS.length;
+  document.getElementById('calDate').textContent = d.date;
+  document.getElementById('calDay').textContent = d.day || '';
+  document.getElementById('calEmoji').textContent = d.emoji;
+  document.getElementById('calText').innerHTML = d.text;
+
+  const card = document.getElementById('calCard');
+  card.classList.toggle('is-future', !!d.future);
+  card.classList.remove('pop');
+  void card.offsetWidth;
+  card.classList.add('pop');
+
+  document.querySelectorAll('.cal-pip').forEach((p, i) => {
+    p.classList.toggle('active', i === calIndex);
+    p.classList.toggle('past', i < calIndex);
+  });
+
+  document.getElementById('calNextBtn').textContent =
+    calIndex === CAL_DAYS.length - 1 ? 'มีอะไรจะถาม →' : 'ถัดไป →';
+}
+
+function nextCalDay() {
+  if (calIndex >= CAL_DAYS.length - 1) {
+    renderAsk();
+    showScreen('screen-ask');
+    return;
+  }
+  calIndex++;
+  renderCalDay();
+}
+
+/* ---------- The ask ---------- */
+function renderAsk() {
+  const box = document.getElementById('askOptions');
+  box.innerHTML = ASK_OPTIONS.map(o =>
+    '<button class="ask-option' + (state.answer === o.key ? ' selected' : '') +
+      '" data-key="' + o.key + '" onclick="pickAnswer(\'' + o.key + '\')">' +
+      '<span class="ask-emoji">' + o.emoji + '</span>' + o.label +
+      '<span class="ask-sub">' + o.sub + '</span>' +
+    '</button>'
+  ).join('');
+  document.getElementById('askNextBtn').disabled = !state.answer;
+}
+
+function pickAnswer(key) {
+  state.answer = key;
+  document.querySelectorAll('.ask-option').forEach(b => {
+    b.classList.toggle('selected', b.dataset.key === key);
+  });
+  document.getElementById('askNextBtn').disabled = false;
+  const el = document.querySelector('.ask-option[data-key="' + key + '"]');
+  const r = el.getBoundingClientRect();
+  spawnFloatEmoji(r.right - 30, r.top, key === 'yes' ? '🎉' : '💛');
+  if (key === 'yes') spawnConfetti();
+}
+
+document.getElementById('askNote').addEventListener('input', (e) => {
+  state.note = e.target.value;
+});
+
+function finishAsk() {
+  renderSummary();
+  showScreen('screen-summary');
+}
+
+/* ---------- Summary ---------- */
+function buildSummaryText() {
+  const lines = ['คำตอบจากตัว 🌿', ''];
+  lines.push('อาทิตย์ 23/8 แข่งเทนนิสที่ Alpine (08:00-11:00)');
+  lines.push('→ ' + (ASK_LABELS[state.answer] || '-'));
+  if ((state.note || '').trim()) lines.push('💬 ' + state.note.trim());
+  return lines.join('\n');
+}
+
+function renderSummary() {
+  const c = document.getElementById('summaryContainer');
+  let html = '<div class="summary-box"><h3>🎾 อาทิตย์ 23/8</h3>';
+  html += '<div class="summary-item">แข่งเทนนิสที่ Alpine 08:00-11:00<br><b>' +
+          (ASK_LABELS[state.answer] || '-') + '</b></div>';
+  if ((state.note || '').trim()) {
+    html += '<div class="summary-item">💬 ' + state.note.trim() + '</div>';
+  }
+  html += '</div>';
+  c.innerHTML = html;
+
+  document.getElementById('copyDone').classList.remove('show');
+  document.getElementById('copyFallback').classList.remove('show');
+  document.getElementById('copyManualHint').classList.remove('show');
+  document.getElementById('copyBtn').textContent = '📋 คัดลอกคำตอบ';
+}
+
+async function copySummary() {
+  const text = buildSummaryText();
+  const done = document.getElementById('copyDone');
+  const fb = document.getElementById('copyFallback');
+  const hint = document.getElementById('copyManualHint');
+  try {
+    if (!navigator.clipboard) throw new Error('no clipboard');
+    await navigator.clipboard.writeText(text);
+    done.classList.add('show');
+    fb.classList.remove('show');
+    hint.classList.remove('show');
+    document.getElementById('copyBtn').textContent = '📋 คัดลอกอีกครั้ง';
+    spawnConfetti();
+  } catch (e) {
+    // Some in-app browsers block the clipboard API — show the text so it
+    // can be selected and copied by hand instead.
+    fb.value = text;
+    fb.classList.add('show');
+    hint.classList.add('show');
+    done.classList.remove('show');
+    try { fb.focus(); fb.select(); } catch (_) {}
+  }
+}
+
+/* ---------- Playful "no" button ---------- */
+const noState = { intro: 0 };
+
+/* Fixed slots (not random) as [x%, y%] of the viewport. */
+const NO_SLOTS = [
+  [0.06, 0.08], [0.78, 0.08], [0.06, 0.86],
+  [0.78, 0.86], [0.42, 0.05], [0.42, 0.9],
+  [0.04, 0.48], [0.82, 0.48]
+];
+
+const BEG_LINES = [
+  'ไม่ดูจริงๆ เหรอ 🥺',
+  'กดดูแป๊บนึงก็ยังดี 🥹',
+  'เค้าทำมาตั้งนานนะ 🙏',
+  'นะนะ นิดเดียวเอง 👀',
+  'กดผิดใช่ไหม บอกมาได้นะ 👀'
+];
+
+const NO_TAUNTS = [
+  'เอ๊ะ ยังจะกดอีก 👀',
+  'กดไปก็เท่านั้นนะ 😌',
+  'ปุ่มนี้เริ่มเหนื่อยแล้ว 😮‍💨',
+  'ลองกดอีกอันสิ น่าา~ 🌸'
+];
+
+function clampToScreen(el, x, y) {
+  const r = el.getBoundingClientRect();
+  const pad = 8;
+  return [
+    Math.max(pad, Math.min(x, window.innerWidth - r.width - pad)),
+    Math.max(pad, Math.min(y, window.innerHeight - r.height - pad))
+  ];
+}
+
+function pressNo(which) {
+  const noBtn = document.getElementById('noIntro');
+  const yesBtn = document.getElementById('yesIntro');
+  if (!noBtn || !yesBtn) return; // already gave up and left
+
+  const n = ++noState[which];
+  const noScale = Math.max(0.42, 1 - n * 0.11);
+  noBtn.style.fontSize = (1 * noScale).toFixed(2) + 'rem';
+  noBtn.style.padding = Math.max(6, 15 * noScale) + 'px ' + Math.max(10, 20 * noScale) + 'px';
+  noBtn.style.opacity = Math.max(0.45, 1 - n * 0.06);
+
+  const yesScale = 1 + n * 0.06;
+  yesBtn.style.fontSize = (1 * yesScale).toFixed(2) + 'rem';
+  yesBtn.style.padding = (15 * yesScale) + 'px ' + (20 * yesScale) + 'px';
+  yesBtn.style.fontWeight = '800';
+
+  if (n >= 3) {
+    noBtn.classList.add('runaway');
+    const slot = NO_SLOTS[(n - 3) % NO_SLOTS.length];
+    const xy = clampToScreen(noBtn, slot[0] * window.innerWidth, slot[1] * window.innerHeight);
+    noBtn.style.left = xy[0] + 'px';
+    noBtn.style.top = xy[1] + 'px';
+  }
+
+  if (n >= 5 && n < 10) {
+    showBeg(BEG_LINES[(n - 5) % BEG_LINES.length]);
+  } else if (n < 5) {
+    showToast(NO_TAUNTS[(n - 1) % NO_TAUNTS.length]);
+  }
+
+  if (n >= 10) {
+    noBtn.style.transition = 'all 0.4s ease';
+    noBtn.style.opacity = '0';
+    noBtn.style.transform = 'scale(0.3) rotate(20deg)';
+    setTimeout(() => noBtn.remove(), 420);
+    showBeg(
+      'กดเพลินเลยนะ 😝<br>จริงๆ อยากดูใช่ไหมล่ะ<br>กดดูเถอะ อย่าลีลา 5555',
+      { emoji: '😝', big: true, autoCloseMs: 6000 }
+    );
+    spawnConfetti();
+  }
+}
+
+let begTimer = null;
+
+function showBeg(text, opts) {
+  opts = opts || {};
+  const overlay = document.getElementById('begOverlay');
+  const emojiEl = document.getElementById('begEmoji');
+  const textEl = document.getElementById('begText');
+  textEl.innerHTML = text;
+  emojiEl.textContent = opts.emoji || '🥺';
+  emojiEl.classList.toggle('big', !!opts.big);
+  textEl.classList.toggle('big', !!opts.big);
+  document.getElementById('begCloseHint').textContent = opts.autoCloseMs
+    ? 'แตะที่ไหนก็ได้เพื่อปิด (เดี๋ยวก็หายเอง)'
+    : 'แตะที่ไหนก็ได้เพื่อปิด';
+  overlay.classList.add('show');
+  clearTimeout(begTimer);
+  if (opts.autoCloseMs) begTimer = setTimeout(closeBeg, opts.autoCloseMs);
+}
+
+function closeBeg() {
+  clearTimeout(begTimer);
+  document.getElementById('begOverlay').classList.remove('show');
+}
+
+/* Keep a runaway button on screen if the device is rotated / resized */
+window.addEventListener('resize', () => {
+  const el = document.getElementById('noIntro');
+  if (!el || !el.classList.contains('runaway')) return;
+  const xy = clampToScreen(el, parseFloat(el.style.left) || 0, parseFloat(el.style.top) || 0);
+  el.style.left = xy[0] + 'px';
+  el.style.top = xy[1] + 'px';
+});
+
+/* ---------- Music credit ---------- */
+document.getElementById('musicCredit').textContent =
+  'Music: "Carefree" by Kevin MacLeod (incompetech.com) — Licensed under CC BY 4.0';
+
+</script>
+
+</body>
+</html>
