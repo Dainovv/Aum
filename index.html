@@ -1239,7 +1239,8 @@
       <div class="btn-row">
         <a class="btn" id="yesOutro"
            href="https://www.instagram.com/dainodainov/"
-           target="_blank" rel="noopener noreferrer">
+           target="_blank" rel="noopener noreferrer"
+           onclick="logClick('ig-link-click')">
           ทักมาที่ IG @dainodainov 💬
         </a>
         <button class="btn ghost" onclick="backToStart()">กลับไปดูอีกรอบ 🔄</button>
@@ -1264,6 +1265,54 @@
 </audio>
 
 <script>
+/* ---------- Click log ----------
+   Sends a tiny event (device id + screen + action) to a Google Sheet
+   webhook so you can see what was clicked without her doing anything.
+   No login, no personal info collected beyond a random per-browser id.
+
+   Fill in WEBHOOK_URL with the Apps Script "Web app" URL, or leave it
+   empty to disable logging entirely (nothing is sent, no errors). */
+const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzRWxs0bom0Pg44okXYQXeQdvEeY1JAWfJuUVNMmnO1owk1eOpkZGo_-MZ4rpZo74gFqA/exec';
+
+function getDeviceId() {
+  try {
+    let id = localStorage.getItem('aumDeviceId');
+    if (!id) {
+      id = 'd_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+      localStorage.setItem('aumDeviceId', id);
+    }
+    return id;
+  } catch (e) {
+    return 'd_unknown';
+  }
+}
+
+function currentScreenId() {
+  const el = document.querySelector('.screen.active');
+  return el ? el.id : 'none';
+}
+
+function logClick(action) {
+  if (!WEBHOOK_URL) return;
+  const payload = {
+    deviceId: getDeviceId(),
+    screen: currentScreenId(),
+    action: action
+  };
+  try {
+    // no-cors: we don't read the response, just fire the request.
+    // Apps Script webhooks don't send CORS headers for simple POSTs,
+    // so a normal fetch would be blocked from reading the result —
+    // no-cors sidesteps that since we never need to read it back.
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  } catch (e) {}
+}
+
 /* ---------- Passcode gate ----------
    Client-side only. The code below is readable by anyone who views
    source, so it stops casual visitors and nothing more. */
@@ -1286,6 +1335,7 @@ function tryUnlock() {
     document.getElementById('lockScreen').classList.add('unlocked');
     document.getElementById('appRoot').hidden = false;
     try { sessionStorage.setItem('aumUnlocked', '1'); } catch (e) {}
+    logClick('unlock-success');
     return;
   }
   error.classList.add('show');
@@ -1293,6 +1343,7 @@ function tryUnlock() {
   void input.offsetWidth;
   input.classList.add('shake');
   input.select();
+  logClick('unlock-wrong-code');
 }
 
 (() => {
@@ -1371,6 +1422,7 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
+  logClick('view:' + id);
 }
 
 function startJourney() {
@@ -1483,6 +1535,7 @@ function nextCalDay() {
   }
   calIndex++;
   renderCalDay();
+  logClick('cal-day:' + CAL_DAYS[calIndex].date + '(' + (calIndex + 1) + '/' + CAL_DAYS.length + ')');
 }
 
 /* ---------- The ask ---------- */
@@ -1508,6 +1561,7 @@ function pickAnswer(key) {
   const r = el.getBoundingClientRect();
   spawnFloatEmoji(r.right - 30, r.top, key === 'yes' ? '🎉' : '💛');
   if (key === 'yes') spawnConfetti();
+  logClick('ask-pick:' + key);
 }
 
 document.getElementById('askNote').addEventListener('input', (e) => {
@@ -1558,6 +1612,7 @@ async function copySummary() {
     hint.classList.remove('show');
     document.getElementById('copyBtn').textContent = '📋 คัดลอกอีกครั้ง';
     spawnConfetti();
+    logClick('copy-summary:' + (state.answer || 'none'));
   } catch (e) {
     // Some in-app browsers block the clipboard API — show the text so it
     // can be selected and copied by hand instead.
@@ -1566,6 +1621,7 @@ async function copySummary() {
     hint.classList.add('show');
     done.classList.remove('show');
     try { fb.focus(); fb.select(); } catch (_) {}
+    logClick('copy-summary-fallback:' + (state.answer || 'none'));
   }
 }
 
@@ -1609,6 +1665,7 @@ function pressNo(which) {
   if (!noBtn || !yesBtn) return; // already gave up and left
 
   const n = ++noState[which];
+  logClick('no-btn-press:' + which + ':' + n);
   const noScale = Math.max(0.42, 1 - n * 0.11);
   noBtn.style.fontSize = (1 * noScale).toFixed(2) + 'rem';
   noBtn.style.padding = Math.max(6, 15 * noScale) + 'px ' + Math.max(10, 20 * noScale) + 'px';
